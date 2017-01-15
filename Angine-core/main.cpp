@@ -47,6 +47,7 @@ int main()
 
 	glfwSetKeyCallback(m_win, key_callback);
 
+	int iii = 3;
 
 	while (!glfwWindowShouldClose(m_win))
 	{
