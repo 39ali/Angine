@@ -13,11 +13,11 @@ int main()
 	std::cout << "opengl - " << glGetString(GL_VERSION) << std::endl;
 
 
-	GLfloat vert[]=
+	GLfloat vert[] =
 	{
-		0,0.5f,0,
-		0.5f,-.5,0,
-		-0.5,-0.5,0
+		0,0.5f,0,    1,0,0,
+		0.5f,-.5,0,  0,1,0,
+		-0.5,-0.5,0 ,0,0,1
 	};
 	GLuint vbo, vao;
 	glGenVertexArrays(1, &vao);
@@ -27,7 +27,10 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vert), vert, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, (void*)0);
+
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, (const void *)(sizeof(GLfloat) * 3));
 	glBindVertexArray(0);
 
 	while (!win->isClosed())
@@ -40,7 +43,7 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		glBindVertexArray(0);
-			program->unuse();
+		program->unuse();
 		win->update();
 	}
 
