@@ -12,6 +12,7 @@ public:
 	~GlProgram();
 	void use()const;
 	void unuse()const;
+	inline GLuint& getProgramId() { return m_program_id; };
 
 private:
 	GLuint compile(const char * shaderloc, GLenum type);
