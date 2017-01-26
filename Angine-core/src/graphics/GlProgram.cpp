@@ -36,8 +36,7 @@ GLuint GlProgram::compile(const char * shaderloc, GLenum type)
 		glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
 
 		std::cout << std::string(infoLog.begin(), infoLog.end()) << std::endl;
-
-
+		
 		glDeleteShader(shader);
 
 
