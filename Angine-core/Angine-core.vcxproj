@@ -155,12 +155,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Cameras\FlyCamera.cpp" />
     <ClCompile Include="src\graphics\GlProgram.cpp" />
     <ClCompile Include="src\graphics\SimpleRenderer.cpp" />
     <ClCompile Include="src\graphics\Texture2D.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Cameras\FlyCamera.h" />
     <ClInclude Include="src\graphics\GlProgram.h" />
     <ClInclude Include="src\graphics\SimpleRenderer.h" />
     <ClInclude Include="src\graphics\Texture2D.h" />
