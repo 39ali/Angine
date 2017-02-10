@@ -20,4 +20,9 @@ private:
 	glm::mat4 m_matrix;
 	const Window* m_window;
 	float m_speed;
+	float m_lastX;
+	float m_lastY;
+	float m_senitivity;
+	float m_pitch;
+	float m_yaw;
 };

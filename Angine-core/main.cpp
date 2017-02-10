@@ -98,7 +98,6 @@ int main()
 
 	glm::mat4   projection, mvp;
 
-	projection = glm::perspective(glm::radians(45.0f), (float)((win->getWidth()) / win->getHeight()), 0.1f, 1000.f);
 	//projection = glm::ortho(-800.f, 800.f, -600.f, 600.f,-2.f,100.f);
 
 	glm::vec3 cubePositions[] = {
@@ -135,6 +134,20 @@ int main()
 			GLfloat camz = cos(glfwGetTime())*radius;
 
 			flycam.updatePosition();
+
+			static float pov = 45;
+			if (win->isKeyPressed(GLFW_KEY_Q))
+			{
+				pov -= 0.005;
+			}
+			else if (win->isKeyPressed(GLFW_KEY_Z))
+			{ 
+				pov += 0.005;
+				
+			}
+			pov = glm::clamp(pov, 1.f, 90.f);
+			projection = glm::perspective(glm::radians(pov), (float)((win->getWidth()) / win->getHeight()), 0.1f, 1000.f);
+
 
 			glm::mat4  view;
 			view = flycam.getMatrix(); // glm::lookAt(glm::vec3(camx, 0, camz), glm::vec3(0, 0, 0), glm::vec3(0, 1.0, 0.0));
