@@ -91,6 +91,11 @@ bool Window::isMouseButtonPressed(unsigned int button)const
 	return m_MouseButtons[button];
 }
 
+void Window::disableCursor()const 
+{
+	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+
 
 Window::~Window()
 {

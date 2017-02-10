@@ -18,6 +18,7 @@ public:
 	bool isKeyPressed(unsigned int keycode)const;
 	bool isMouseButtonPressed(unsigned int keycode)const;
 	void getMousePos(double& x, double& y)const { x = mx; y = my; };
+	void Window::disableCursor()const;
 private:
 	GLFWwindow* m_window;
 	int m_width, m_height;
