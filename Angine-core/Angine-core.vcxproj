@@ -158,6 +158,7 @@
     <ClCompile Include="src\Cameras\FlyCamera.cpp" />
     <ClCompile Include="src\graphics\GlProgram.cpp" />
     <ClCompile Include="src\graphics\SimpleRenderer.cpp" />
+    <ClCompile Include="src\graphics\Time.cpp" />
     <ClCompile Include="src\graphics\Texture2D.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
   </ItemGroup>
@@ -166,6 +167,7 @@
     <ClInclude Include="src\graphics\GlProgram.h" />
     <ClInclude Include="src\graphics\SimpleRenderer.h" />
     <ClInclude Include="src\graphics\Texture2D.h" />
+    <ClInclude Include="src\graphics\Time.h" />
     <ClInclude Include="src\graphics\Window.h" />
     <ClInclude Include="src\utils\Reader.h" />
   </ItemGroup>

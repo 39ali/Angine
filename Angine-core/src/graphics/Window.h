@@ -2,6 +2,7 @@
 #include <glew\GL\glew.h>
 #include <glfw\glfw3.h>
 #include <iostream>
+#include "Time.h"
 
 #define MAX_KEYS 1024
 #define MAX_BUTTONS 32
@@ -27,6 +28,7 @@ private:
 	static bool m_MouseButtons[MAX_BUTTONS];
 	static double mx, my;
 	static bool m_isclosed;
+
 private:
 
 	friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);

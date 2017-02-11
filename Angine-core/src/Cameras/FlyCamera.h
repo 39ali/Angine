@@ -11,6 +11,7 @@ public:
 	~FlyCamera();
 	void updatePosition();
 	inline const glm::mat4& getMatrix() const { return m_matrix; }
+	inline const glm::vec3& getposition()const { return m_position; };
 
 private:
 	glm::vec3 m_position;
@@ -19,6 +20,7 @@ private:
 	glm::vec3 m_front;
 	glm::mat4 m_matrix;
 	const Window* m_window;
+	float m_speedAmount;
 	float m_speed;
 	float m_lastX;
 	float m_lastY;

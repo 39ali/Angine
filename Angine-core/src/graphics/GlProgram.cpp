@@ -35,7 +35,7 @@ GLuint GlProgram::compile(const char * shaderloc, GLenum type)
 		std::vector<GLchar> infoLog(maxLength);
 		glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
 
-		std::cout << std::string(infoLog.begin(), infoLog.end()) << std::endl;
+		std::cout << "shader compile  error : "<< shaderloc << " : "<<std::string(infoLog.begin(), infoLog.end()) << std::endl;
 		
 		glDeleteShader(shader);
 
@@ -60,7 +60,7 @@ void  GlProgram::link() const
 		std::vector<GLchar> infoLog(maxLength);
 		glGetProgramInfoLog(m_program_id, maxLength, &maxLength, &infoLog[0]);
 
-		std::cout << std::string(infoLog.begin(), infoLog.end()) << std::endl;
+		std::cout << "shader linking error : "<< std::string(infoLog.begin(), infoLog.end()) << std::endl;
 
 		glDeleteProgram(m_program_id);
 
