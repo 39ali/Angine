@@ -65,6 +65,8 @@ Window::Window(const int width, const int height, const char* title) :
 void Window::update()
 {
 	glfwSwapBuffers(m_window);
+	Time::updateTime(glfwGetTime());
+	Time::updateFps(glfwGetTime());
 }
 void Window::clear()
 {
@@ -91,7 +93,7 @@ bool Window::isMouseButtonPressed(unsigned int button)const
 	return m_MouseButtons[button];
 }
 
-void Window::disableCursor()const 
+void Window::disableCursor()const
 {
 	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
