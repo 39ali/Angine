@@ -11,7 +11,7 @@ GlProgram::GlProgram(const char * vertexshaderloc, const char* fragmentshaderloc
 };
 
 
-
+  
 GLuint GlProgram::compile(const char * shaderloc, GLenum type)
 {
 
