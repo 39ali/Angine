@@ -10,9 +10,13 @@ public:
 	FlyCamera(const glm::vec3&  pos, const glm::vec3& up, const glm::vec3& right, const glm::vec3& front, const Window*  win);
 	~FlyCamera();
 	void updatePosition();
+
 	inline const glm::mat4& getMatrix() const { return m_matrix; }
 	inline const glm::vec3& getposition()const { return m_position; };
-
+	inline const float& getZoom()const { return m_pov; };
+	inline const glm::vec3& getFront()const { return m_front; };
+private:
+	void updateZoom();
 private:
 	glm::vec3 m_position;
 	glm::vec3 m_up;
@@ -27,4 +31,6 @@ private:
 	float m_senitivity;
 	float m_pitch;
 	float m_yaw;
+	bool m_firstMouse;
+	float m_pov = 45;
 };

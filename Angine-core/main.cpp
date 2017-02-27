@@ -7,160 +7,85 @@
 #include <glm\gtx\transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 #include "src\Cameras\FlyCamera.h"
-
-
-
+#include "src\graphics\model.h"
 
 int main()
 {
 	Window* win = new Window(800, 600, "yoo");
-	GlProgram* lampshader = new GlProgram("./shaders/lampshader.vert", "./shaders/lampshader.frag");
-	GlProgram* modelshader = new GlProgram("./shaders/modelshader.vert", "./shaders/modelshader.frag");
+
 	std::cout << "opengl - " << glGetString(GL_VERSION) << std::endl;
+	glfwSwapInterval(1);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	GlProgram lightingShader("./shaders/basic_lighting.vs", "./shaders/basic_lighting.frag");
+	//GlProgram lampShader("./shaders/lamp.vs", "./shaders/lamp.frag");
+	Model ourModel("./models/nanosuit/nanosuit.obj");
 
+	FlyCamera camera(glm::vec3(0, 0, 3), glm::vec3(0, 1, 0), glm::vec3(1, 0, 0), glm::vec3(0, 0, -1), win);
 
-
-	GLfloat vertices[] = {
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+	glm::vec3 pointLightPositions[] = {
+		glm::vec3(0.7f,  0.2f,  2.0f),
+		glm::vec3(2.3f, -3.3f, -4.0f),
+		glm::vec3(-4.0f,  2.0f, -12.0f),
+		glm::vec3(0.0f,  0.0f, -3.0f)
 	};
 
-	glm::vec3 lightPos(1.0f, 1.0f, 1.0f);
-
-	FlyCamera flycam(glm::vec3(0, 0, 3), glm::vec3(0, 1, 0), glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), win);
-
-
-
-	GLuint vbo, lightvao;
-	glGenVertexArrays(1, &lightvao);
-	glGenBuffers(1, &vbo);
-
-	glBindVertexArray(lightvao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, (void*)0);
-	glBindVertexArray(0);
-
-
-	GLuint modelVao;
-	glCreateVertexArrays(1, &modelVao);
-	glBindVertexArray(modelVao);
-	glBindVertexArray(modelVao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT) * 6, (const void*)0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT) * 6, (const void*)(sizeof(GL_FLOAT) * 3));
-	glBindVertexArray(0);
-
-
-
-
-	glm::mat4   projection, mvp, view;
-
-	glm::mat4 model;
-	model = glm::translate(glm::vec3(0.0f, 0.0f, -2.0f));
+	glm::vec3 lightPosition(1.2, 1, 2);
 
 	while (!win->isClosed())
 	{
+
 		win->clear();
 		static double fisttime = Time::getTime();
-
-		if (Time::getTime() - fisttime >= 1.0) {
+		if (Time::getTime() - fisttime >= 2.0) {
 			std::cout << "FPS: " << Time::getFps() << std::endl;
 			fisttime = Time::getTime();
-			std::cout << "DELTA : " << Time::getDeltaTime() << std::endl;
 		}
 
-		flycam.updatePosition();
+		camera.updatePosition();
+		lightingShader.use();
 
-		static float pov = 45;
-		if (win->isKeyPressed(GLFW_KEY_Q))
+		glm::mat4  view, projection;
+		projection = glm::perspective(glm::radians(camera.getZoom()), (float)win->getWidth() / (float)win->getHeight(), 0.1f, 100.0f);
+		view = camera.getMatrix();
+		GLuint projectionLoc = glGetUniformLocation(lightingShader.getProgramId(), "projection");
+		GLuint viewLoc = glGetUniformLocation(lightingShader.getProgramId(), "view");
+
+		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		glm::mat4 model;
+		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.getProgramId(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+
+		glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), "viewPos"), camera.getposition().x, camera.getposition().y, camera.getposition().z);
+
+
+		for (std::size_t i = 0; i < 4; i++)
 		{
-			pov -= 5 * (float)Time::getDeltaTime();
+			std::string s = "pointLights[" + std::to_string(i) + "]";
+			glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), (s + ".position").c_str()), pointLightPositions[i].x, pointLightPositions[i].y, pointLightPositions[i].z);
+			glUniform1f(glGetUniformLocation(lightingShader.getProgramId(), (s + ".constant").c_str()), 1.0f);
+			glUniform1f(glGetUniformLocation(lightingShader.getProgramId(), (s + ".linear").c_str()), 0.09);
+			glUniform1f(glGetUniformLocation(lightingShader.getProgramId(), (s + ".quadratic").c_str()), 0.032);
+			glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), (s + ".ambient").c_str()), 0.2f, 0.2f, 0.2f);
+			glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), (s + ".diffuse").c_str()), 0.5f, 0.5f, 0.5f);
+			glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), (s + ".specular").c_str()), 1.0f, 1.0f, 1.0f);
 		}
-		else if (win->isKeyPressed(GLFW_KEY_Z))
-		{
-			pov += (float)(5 * Time::getDeltaTime());
-		}
-		pov = glm::clamp(pov, 1.f, 90.f);
-		projection = glm::perspective(glm::radians(pov), (float)((win->getWidth()) / win->getHeight()), 0.1f, 1000.f);
+		glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), "dirLight.direction"), -0.2f, -1.0f, -0.3f);
+		glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), "dirLight.ambient"), 0.2f, 0.2f, 0.2f);
+		glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), "dirLight.diffuse"), 0.5f, 0.5f, 0.5f);
+		glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), "dirLight.specular"), 1.0f, 1.0f, 1.0f);
+
+		GLuint idd = glGetUniformLocation(lightingShader.getProgramId(), "material.shininess");
+		glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), "lightColor"), 1.0f, 1.0f, 1.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.getProgramId(), "dirLight.ambient"), 0.2f, 0.2f, 0.2f);
+		glUniform1f(idd, 32.0f);
+
+		ourModel.Draw(&lightingShader);
 
 
-
-		view = flycam.getMatrix();
-
-
-
-		lampshader->use();
-		model = glm::translate(lightPos)*glm::scale(glm::vec3(0.2));
-		mvp = projection*view * model;
-		GLuint transformloc = glGetUniformLocation(lampshader->getProgramId(), "mvp");
-		glUniformMatrix4fv(transformloc, 1, GL_FALSE, &mvp[0][0]);
-
-		glBindVertexArray(lightvao);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		glBindVertexArray(0);
-		lampshader->unuse();
-
-
-
-		modelshader->use();
-		model = glm::mat4();
-		mvp = projection*view*model;
-		glUniform3f(glGetUniformLocation(modelshader->getProgramId(), "cameraposition"), flycam.getposition().x, flycam.getposition().y, flycam.getposition().z);
-		glUniform3f(glGetUniformLocation(modelshader->getProgramId(), "modelcolor"), 1.0f, 0.5f, 0.31f);
-		glUniform3f(glGetUniformLocation(modelshader->getProgramId(), "lightcolor"), 1.0f, 1.0f, 1.0f);
-		glUniform3f(glGetUniformLocation(modelshader->getProgramId(), "lightposition"), lightPos.x, lightPos.y, lightPos.z);
-		glUniformMatrix4fv(glGetUniformLocation(modelshader->getProgramId(), "modelmatrix"), 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(glGetUniformLocation(modelshader->getProgramId(), "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
-		glBindVertexArray(modelVao);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		glBindVertexArray(0);
-		modelshader->unuse();
-
+		lightingShader.unuse();
 
 
 		win->update();
