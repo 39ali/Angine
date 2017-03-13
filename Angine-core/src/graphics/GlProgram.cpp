@@ -35,8 +35,8 @@ GLuint GlProgram::compile(const char * shaderloc, GLenum type)
 		std::vector<GLchar> infoLog(maxLength);
 		glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
 
-		std::cout << "shader compile  error : "<< shaderloc << " : "<<std::string(infoLog.begin(), infoLog.end()) << std::endl;
-		
+		std::cout << "shader compile  error : " << shaderloc << " : " << std::string(infoLog.begin(), infoLog.end()) << std::endl;
+
 		glDeleteShader(shader);
 
 
@@ -60,7 +60,7 @@ void  GlProgram::link() const
 		std::vector<GLchar> infoLog(maxLength);
 		glGetProgramInfoLog(m_program_id, maxLength, &maxLength, &infoLog[0]);
 
-		std::cout << "shader linking error : "<< std::string(infoLog.begin(), infoLog.end()) << std::endl;
+		std::cout << "shader linking error : " << std::string(infoLog.begin(), infoLog.end()) << std::endl;
 
 		glDeleteProgram(m_program_id);
 
@@ -89,8 +89,25 @@ void GlProgram::unuse()const
 
 GlProgram::~GlProgram()
 {
-
 	glDeleteProgram(m_program_id);
 	glDeleteShader(m_vs_id);
 	glDeleteShader(m_vs_id);
 };
+
+
+void GlProgram::setUniform(const char* name, glm::mat4& value) const
+{
+	glUniformMatrix4fv(glGetUniformLocation(m_program_id, name), 1, GL_FALSE, &value[0][0]);
+}
+void GlProgram::setUniform(const char * name, const glm::vec3& value) const
+{
+	glUniform3f(glGetUniformLocation(m_program_id, name), value.x, value.y, value.z);
+}
+void GlProgram::setUniform(const char * name, const float& value) const
+{
+	glUniform1f(glGetUniformLocation(m_program_id, name), value);
+}
+
+
+
+

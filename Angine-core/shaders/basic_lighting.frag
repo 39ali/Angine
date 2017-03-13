@@ -55,7 +55,7 @@ float linear;
 float quadratic;
 };
 
-#define NUM_POINT_LIGHTS 4
+#define NUM_POINT_LIGHTS 2
 
 uniform vec3 lightColor;
 uniform vec3 lightPos;
