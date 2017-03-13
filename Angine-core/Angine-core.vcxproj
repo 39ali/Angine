@@ -157,6 +157,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Cameras\FlyCamera.cpp" />
     <ClCompile Include="src\graphics\CubeMap.cpp" />
+    <ClCompile Include="src\graphics\FrameBuffer.cpp" />
     <ClCompile Include="src\graphics\GlProgram.cpp" />
     <ClCompile Include="src\graphics\lights\DirectionLight.cpp" />
     <ClCompile Include="src\graphics\lights\PointLight.cpp" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="src\Cameras\FlyCamera.h" />
     <ClInclude Include="src\graphics\CubeMap.h" />
+    <ClInclude Include="src\graphics\FrameBuffer.h" />
     <ClInclude Include="src\graphics\GlProgram.h" />
     <ClInclude Include="src\graphics\lights\DirectionLight.h" />
     <ClInclude Include="src\graphics\lights\Light.h" />

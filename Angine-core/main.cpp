@@ -11,12 +11,12 @@
 #include "src\graphics\lights\DirectionLight.h"
 #include "src\graphics\lights\PointLight.h"
 #include "src\graphics\CubeMap.h"
+#include "src\graphics\FrameBuffer.h"
 #include <vector>
 
 
 GLuint generateAttachmentTexture(GLboolean depth, GLboolean stencil)
 {
-	// What enum to use?
 	GLenum attachment_type;
 	if (!depth && !stencil)
 		attachment_type = GL_RGB;
@@ -65,27 +65,9 @@ int main()
 		glm::vec3(0.0f,  0.0f, -3.0f)
 	};
 
-	GLfloat quadVertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-								 // Positions   // TexCoords
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		-1.0f, -1.0f,  0.0f, 0.0f,
-		1.0f, -1.0f,  1.0f, 0.0f,
+	FrameBuffer pstef(win->getWidth(), win->getHeight());
 
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		1.0f, -1.0f,  1.0f, 0.0f,
-		1.0f,  1.0f,  1.0f, 1.0f
-	};
-	GLuint quadVAO, quadVBO;
-	glGenVertexArrays(1, &quadVAO);
-	glGenBuffers(1, &quadVBO);
-	glBindVertexArray(quadVAO);
-	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
-	glBindVertexArray(0);
+
 
 
 	GLfloat cubeVertices[] = {
@@ -145,55 +127,40 @@ int main()
 	glBindVertexArray(0);
 
 
-	GLfloat floorVertices[] = {
-		// Positions          // Texture Coords (note we set these higher than 1 that together with GL_REPEAT as texture wrapping mode will cause the floor texture to repeat)
-		5.0f,  -0.5f,  5.0f,  2.0f, 0.0f,
-		-5.0f, -0.5f,  5.0f,  0.0f, 0.0f,
-		-5.0f, -0.5f, -5.0f,  0.0f, 2.0f,
 
-		5.0f,  -0.5f,  5.0f,  2.0f, 0.0f,
-		-5.0f, -0.5f, -5.0f,  0.0f, 2.0f,
-		5.0f,  -0.5f, -5.0f,  2.0f, 2.0f
+	GLfloat planeVertices[] = {
+		// Positions          // Normals         // Texture Coords
+		8.0f, -0.5f,  8.0f,  0.0f, 1.0f, 0.0f,  5.0f, 0.0f,
+		-8.0f, -0.5f,  8.0f,  0.0f, 1.0f, 0.0f,  0.0f, 0.0f,
+		-8.0f, -0.5f, -8.0f,  0.0f, 1.0f, 0.0f,  0.0f, 5.0f,
+
+		8.0f, -0.5f,  8.0f,  0.0f, 1.0f, 0.0f,  5.0f, 0.0f,
+		-8.0f, -0.5f, -8.0f,  0.0f, 1.0f, 0.0f,  0.0f, 5.0f,
+		8.0f, -0.5f, -8.0f,  0.0f, 1.0f, 0.0f,  5.0f, 5.0f
 	};
-
-	GLuint floorVAO, floorVBO;
-	glGenVertexArrays(1, &floorVAO);
-	glGenBuffers(1, &floorVBO);
-	glBindVertexArray(floorVAO);
-	glBindBuffer(GL_ARRAY_BUFFER, floorVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(floorVertices), &floorVertices, GL_STATIC_DRAW);
+	// Setup plane VAO
+	GLuint planeVAO, planeVBO;
+	glGenVertexArrays(1, &planeVAO);
+	glGenBuffers(1, &planeVBO);
+	glBindVertexArray(planeVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, planeVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(planeVertices), &planeVertices, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
 	glBindVertexArray(0);
 
 
 
 
-	// Framebuffers
-	GLuint framebuffer;
-	glGenFramebuffers(1, &framebuffer);
-	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-	// Create a color attachment texture
-	GLuint textureColorbuffer = generateAttachmentTexture(false, false);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
-	// Create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
-	GLuint rbo;
-	glGenRenderbuffers(1, &rbo);
-	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 800, 600); // Use a single renderbuffer object for both a depth AND stencil buffer.
-	glBindRenderbuffer(GL_RENDERBUFFER, 0);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // Now actually attach it
-																								  // Now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << endl;
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
-
-
-	Texture2D floortexture("./textures/wall.jpg");
+	Texture2D cubetexture("./textures/wall.jpg");
+	Texture2D  planetexture("./textures/wood.jpg");
+	
 	std::vector<const char *> cubefaces;
 	cubefaces.push_back("./textures/cubeMaps/hw_lagoon/lagoon_bk.tga");
 	cubefaces.push_back("./textures/cubeMaps/hw_lagoon/lagoon_dn.tga");
@@ -220,13 +187,7 @@ int main()
 			std::cout << "FPS: " << Time::getFps() << std::endl;
 			fisttime = Time::getTime();
 		}
-
-		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		glEnable(GL_DEPTH_TEST);
-
+		pstef.bind();
 
 		camera.updatePosition();
 		//	lightingShader.use();
@@ -249,7 +210,7 @@ int main()
 		basicShader.setUniform("projection", projection);
 		basicShader.setUniform("view", view);
 		glm::mat4 model = glm::mat4();
-		floortexture.use(0);
+		cubetexture.use(0);
 		basicShader.setUniform("model", model);
 		//cube.Draw(&basicShader);
 
@@ -264,8 +225,10 @@ int main()
 		//glBindVertexArray(0);
 		//basicShader.unuse();
 
-
-
+		glBindVertexArray(planeVAO);
+		
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glBindVertexArray(0);
 		/*	for (std::size_t i = 0; i < 2; i++)
 			{
 				const glm::vec3 & pos = glm::vec3(pointLightPositions[i].x, pointLightPositions[i].y, pointLightPositions[i].z);
@@ -288,26 +251,18 @@ int main()
 			lightingShader.unuse();*/
 
 
+		pstef.unbind();
+		pstef.draw(&posteffect);
 
-
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		// Clear all relevant buffers
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Set clear color to white (not really necessery actually, since we won't be able to see behind the quad anyways)
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glDisable(GL_DEPTH_TEST); // We don't care about depth information when rendering a single quad
 
 		if (win->isKeyPressed(GLFW_KEY_B)) {
-			posteffect.use();
+			pstef.draw(&posteffect);
 		}
 		else
 		{
-			basicposteffect.use();
+			pstef.draw(&basicposteffect);
 		}
-		glBindVertexArray(quadVAO);
-		glBindTexture(GL_TEXTURE_2D, textureColorbuffer);	// Use the color attachment texture as the texture of the quad plane
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		glBindVertexArray(0);
-		posteffect.unuse();
+
 
 		win->update();
 	}

@@ -6,7 +6,8 @@ uniform mat4 view;
 
 void main ()
 {
-gl_Position = projection * view*vec4(pos , 1.0);
+ vec4 pose = projection * view * vec4(pos, 1.0);
+gl_Position =pose.xyww;
 texCoords= pos;
 }
 
