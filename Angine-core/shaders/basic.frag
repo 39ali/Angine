@@ -1,18 +1,13 @@
-#version 330 core
-in vec2 TexCoords;
-out vec4 color;
+#version 330 core 
 
-struct Material 
+out vec4 color ; 
+
+uniform sampler2D texid;
+
+in vec2 out_texcoords;
+
+void main ()
 {
-sampler2D texture_diffuse1;
-sampler2D texture_ambient1;
-sampler2D texture_specular1;
+
+color = texture(texid,out_texcoords);
 };
-
-
-uniform Material material;
-
-void main()
-{    
-    color = texture(material.texture_diffuse1, TexCoords);
-}
