@@ -95,7 +95,6 @@ void FrameBuffer::bind() const
 void FrameBuffer::unbind()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	
 }
 
 void FrameBuffer::draw(GlProgram* shader)const

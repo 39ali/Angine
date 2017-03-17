@@ -162,6 +162,7 @@
     <ClCompile Include="src\graphics\lights\DirectionLight.cpp" />
     <ClCompile Include="src\graphics\lights\PointLight.cpp" />
     <ClCompile Include="src\graphics\mesh.cpp" />
+    <ClCompile Include="src\graphics\Shadow.cpp" />
     <ClCompile Include="src\graphics\SimpleRenderer.cpp" />
     <ClCompile Include="src\graphics\Time.cpp" />
     <ClCompile Include="src\graphics\Texture2D.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="src\graphics\lights\PointLight.h" />
     <ClInclude Include="src\graphics\mesh.h" />
     <ClInclude Include="src\graphics\model.h" />
+    <ClInclude Include="src\graphics\Shadow.h" />
     <ClInclude Include="src\graphics\SimpleRenderer.h" />
     <ClInclude Include="src\graphics\Texture2D.h" />
     <ClInclude Include="src\graphics\Time.h" />
