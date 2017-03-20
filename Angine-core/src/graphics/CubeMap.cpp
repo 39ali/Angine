@@ -5,6 +5,7 @@ CubeMap::CubeMap(const std::vector<const char*>& Cubemaps)
 	loadCubeMap(Cubemaps);
 	loadVert();
 	m_shader = new GlProgram("./shaders/cubemap.vs", "./shaders/cubemap.frag");
+	glDepthFunc(GL_LEQUAL);
 };
 
 CubeMap::~CubeMap()

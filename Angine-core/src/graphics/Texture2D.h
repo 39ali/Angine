@@ -9,6 +9,7 @@ public:
 	~Texture2D();
 	void use(unsigned int textureUnit);
 	void unuse();
+	GLuint getID() const { return m_texture_id; };
 
 private:
 	GLuint m_texture_id;
