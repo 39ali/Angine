@@ -1,0 +1,77 @@
+﻿  winfnt.c
+  type42.c
+  type1.c
+  truetype.c
+  smooth.c
+  sfnt.c
+  raster.c
+  psmodule.c
+  pshinter.c
+  psaux.c
+  pfr.c
+  pcf.c
+  ftlzw.c
+  ftgzip.c
+  type1cid.c
+  cff.c
+  ftcache.c
+  bdf.c
+  ftxf86.c
+  ftwinfnt.c
+  Running Code Analysis for C/C++...
+  Generating Code...
+  Compiling...
+  fttype1.c
+  ftsystem.c
+  ftsynth.c
+  ftstroke.c
+  ftpfr.c
+  ftpatent.c
+  ftotval.c
+  ftmm.c
+  ftlcdfil.c
+  ftinit.c
+  ftgxval.c
+  ftglyph.c
+  ftgasp.c
+  ftfstype.c
+  ftdebug.c
+  ftbitmap.c
+  ftbbox.c
+  ftbase.c
+  autofit.c
+  vector.c
+  Running Code Analysis for C/C++...
+  Generating Code...
+  Compiling...
+  texture-font.c
+  texture-atlas.c
+c:\users\ali-pc\downloads\freetype\freetype-gl\texture-atlas.c(133): warning C4090: '=': different 'const' qualifiers
+c:\users\ali-pc\downloads\freetype\freetype-gl\texture-atlas.c(237): warning C4018: '<': signed/unsigned mismatch
+  platform.c
+  Running Code Analysis for C/C++...
+  Generating Code...
+     Creating library C:\Users\Ali-PC\Downloads\dev\Angine\bin\Debug\SPFont.lib and object C:\Users\Ali-PC\Downloads\dev\Angine\bin\Debug\SPFont.exp
+  FreeType.vcxproj -> C:\Users\Ali-PC\Downloads\dev\Angine\bin\Debug\SPFont.dll
+  FreeType.vcxproj -> C:\Users\Ali-PC\Downloads\dev\Angine\bin\Debug\SPFont.pdb (Partial PDB)
+c:\users\ali-pc\downloads\freetype\freetype-gl\platform.c(53): warning C6011: Dereferencing NULL pointer 'copy'. See line 52 for an earlier location where this can occur
+c:\users\ali-pc\downloads\freetype\freetype-gl\platform.c(52): warning C6387: 'copy' could be '0':  this does not adhere to the specification for the function 'memcpy'. 
+c:\users\ali-pc\downloads\freetype\freetype-gl\vector.c(160): warning C6308: 'realloc' might return null pointer: assigning null pointer to 'self->items', which is passed as an argument to 'realloc', will cause the original memory block to be leaked.
+c:\users\ali-pc\downloads\freetype\freetype-gl\vector.c(184): warning C6308: 'realloc' might return null pointer: assigning null pointer to 'self->items', which is passed as an argument to 'realloc', will cause the original memory block to be leaked.
+c:\users\ali-pc\downloads\freetype\src\autofit\afglobal.c(219): warning C6385: Reading invalid data from 'af_style_classes':  the readable size is '192' bytes, but '-4' bytes may be read.
+c:\users\ali-pc\downloads\freetype\src\autofit\afglobal.c(416): warning C6385: Reading invalid data from 'globals->metrics':  the readable size is '188' bytes, but '512' bytes may be read.
+c:\users\ali-pc\downloads\freetype\src\autofit\afglobal.c(412): warning C6385: Reading invalid data from 'af_style_classes':  the readable size is '192' bytes, but '512' bytes may be read.
+c:\users\ali-pc\downloads\freetype\src\autofit\afglobal.c(443): warning C6386: Buffer overrun while writing to 'globals->metrics':  the writable size is '188' bytes, but '512' bytes might be written.
+c:\users\ali-pc\downloads\freetype\src\autofit\afcjk.c(1795): warning C28182: Dereferencing NULL pointer. 'edge' contains the same NULL value as 'edge2' did. See line 1741 for an earlier location where this can occur
+c:\users\ali-pc\downloads\freetype\src\autofit\afcjk.c(1985): warning C28182: Dereferencing NULL pointer. 'edge1' contains the same NULL value as 'anchor' did. See line 1795 for an earlier location where this can occur
+c:\users\ali-pc\downloads\freetype\src\base\ftobjs.c(4453): warning C6011: Dereferencing NULL pointer 'cur[0]'. 
+c:\users\ali-pc\downloads\freetype\src\bdf\bdflib.c(2349): warning C6011: Dereferencing NULL pointer 'p->font'. 
+c:\users\ali-pc\downloads\freetype\src\cff\cffload.c(414): warning C6011: Dereferencing NULL pointer 'idx->offsets'. 
+c:\users\ali-pc\downloads\freetype\src\cff\cf2intrp.c(195): warning C6385: Reading invalid data from 'hintmask->mask':  the readable size is '12' bytes, but '-1' bytes may be read.
+c:\users\ali-pc\downloads\freetype\src\cid\cidload.c(459): warning C6011: Dereferencing NULL pointer 'offsets'. 
+c:\users\ali-pc\downloads\freetype\src\pfr\pfrobjs.c(429): warning C28182: Dereferencing NULL pointer. 'pfrsize' contains the same NULL value as 'size' did. 
+c:\users\ali-pc\downloads\freetype\src\psaux\t1decode.c(886): warning C6011: Dereferencing NULL pointer 'decoder->buildchar'. 
+c:\users\ali-pc\downloads\freetype\src\truetype\ttgload.c(1805): warning C6011: Dereferencing NULL pointer 'subglyph'. 
+c:\users\ali-pc\downloads\freetype\src\truetype\ttgxvar.c(876): warning C28182: Dereferencing NULL pointer. 'blend' contains the same NULL value as 'face->blend' did. 
+c:\users\ali-pc\downloads\freetype\src\truetype\ttgxvar.c(1005): warning C28182: Dereferencing NULL pointer. 'blend' contains the same NULL value as 'face->blend' did. 
+c:\users\ali-pc\downloads\freetype\src\type1\t1load.c(875): warning C6011: Dereferencing NULL pointer 'blend'. 

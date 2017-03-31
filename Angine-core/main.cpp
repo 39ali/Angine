@@ -14,16 +14,16 @@
 #include "src\graphics\FrameBuffer.h"
 #include <vector>
 #include "src\graphics\Shadow.h"
-
+#include "src\graphics\Text.h"
+#include "src\graphics\Label.h"
 #include <ft2build.h>
 #include FT_FREETYPE_H 
 
 
+#if 0
 
 GLuint planeVAO;
 
-// RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
-// and post-processing effects.
 GLuint quadVAO = 0;
 GLuint quadVBO;
 void RenderQuad()
@@ -53,7 +53,7 @@ void RenderQuad()
 	glBindVertexArray(0);
 }
 
-// RenderCube() Renders a 1x1 3D cube in NDC.
+
 GLuint cubeVAO = 0;
 GLuint cubeVBO = 0;
 void RenderCube()
@@ -126,8 +126,7 @@ void RenderCube()
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 }
-// RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
-// and post-processing effects.
+
 
 
 void RenderScene(GlProgram &shader)
@@ -173,7 +172,7 @@ int main()
 	shader.use();
 	glUniform1i(glGetUniformLocation(shader.getProgramId(), "diffuseTexture"), 0);
 	glUniform1i(glGetUniformLocation(shader.getProgramId(), "shadowMap"), 1);
-
+	Label label;
 
 
 	GLfloat planeVertices[] = {
@@ -208,12 +207,16 @@ int main()
 
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
+	Text t("hello", glm::vec3(0, 0, 0), glm::vec3(0, 0, 0));
 	Shadow shadowobj;
+	const float & fps = Time::getFps();
 	while (!win->isClosed())
 	{
 		win->clear();
+
 		static double fisttime = Time::getTime();
 		if (Time::getTime() - fisttime >= 2.0) {
+
 			std::cout << "FPS: " << Time::getFps() << std::endl;
 			fisttime = Time::getTime();
 		}
@@ -225,7 +228,6 @@ int main()
 		glm::mat4 lightSpaceMatrix;
 		GLfloat near_plane = 1.0f, far_plane = 7.5f;
 		lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-		//lightProjection = glm::perspective(45.0f, (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // Note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene.
 		lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 		lightSpaceMatrix = lightProjection * lightView;
 		// - now render scene from light's point of view
@@ -253,7 +255,11 @@ int main()
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, shadowobj.getdepthTexture());
 		RenderScene(shader);
+		label.drawString(std::to_string(static_cast<int>(fps)), glm::vec2(20, 20), 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
 
+		//t.drawsprite();
+
+		//t.draw();
 
 		win->update();
 	}
@@ -261,5 +267,5 @@ int main()
 	delete win;
 	return 0;
 }
-
+#endif
 
