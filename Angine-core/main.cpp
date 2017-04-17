@@ -22,8 +22,7 @@
 
 GLuint planeVAO;
 
-// RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
-// and post-processing effects.
+
 GLuint quadVAO = 0;
 GLuint quadVBO;
 void RenderQuad()
@@ -53,7 +52,7 @@ void RenderQuad()
 	glBindVertexArray(0);
 }
 
-// RenderCube() Renders a 1x1 3D cube in NDC.
+
 GLuint cubeVAO = 0;
 GLuint cubeVBO = 0;
 void RenderCube()
@@ -126,8 +125,7 @@ void RenderCube()
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 }
-// RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
-// and post-processing effects.
+
 
 
 void RenderScene(GlProgram &shader)
@@ -253,6 +251,7 @@ int main()
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, shadowobj.getdepthTexture());
 		RenderScene(shader);
+
 
 
 		win->update();
