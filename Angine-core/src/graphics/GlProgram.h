@@ -19,6 +19,7 @@ public:
 	void setUniform(const char* name, glm::mat4& value) const;
 	void setUniform(const char * name, const glm::vec3& value) const;
 	void setUniform(const char * name, const float& value) const;
+	void setUniform(const char * name, const int& value) const;
 private:
 	GLuint compile(const char * shaderloc, GLenum type);
 	void link() const;

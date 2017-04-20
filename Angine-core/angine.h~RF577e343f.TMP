@@ -1,0 +1,47 @@
+#pragma once
+#include "src\graphics\Window.h"
+class Angine
+{
+private:
+	Window* m_win;
+
+protected:
+	Angine()
+	{
+		std::cout << "opengl - " << glGetString(GL_VERSION) << std::endl;
+	}
+	~Angine()
+	{
+	}
+
+	virtual void init() = 0;
+	virtual void render() = 0;
+	virtual void update() {}
+	virtual void tick() {}
+
+	void run()
+	{
+		double beginTime = Time::getTime();
+		while (!m_win->isClosed())
+		{
+			m_win->clear();
+			render();
+
+			if (Time::getTime() - fisttime >= 1.0) {
+				std::cout << "FPS: " << Time::getFps() << std::endl;
+				fisttime = Time::getTime();
+			}
+
+			m_win->update();
+		}
+
+	}
+	void createWindow(int screenWidth, int screenHeight, std::string& title) { m_win = new Window(screenWidth, screenHeight, title.c_str()); };
+public:
+	void start()
+	{
+		init();
+		run();
+	}
+
+};

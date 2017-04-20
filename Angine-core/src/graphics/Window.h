@@ -9,7 +9,7 @@
 class Window
 {
 public:
-	Window(const int width, const int height, const char* title);
+	Window(const int width, const int height, const char* title, bool depeth = true);
 	~Window();
 	inline int getWidth() const { return m_width; };
 	inline int getHeight()const { return m_height; };

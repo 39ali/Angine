@@ -108,6 +108,7 @@ void GlProgram::setUniform(const char * name, const float& value) const
 	glUniform1f(glGetUniformLocation(m_program_id, name), value);
 }
 
-
-
-
+void GlProgram::setUniform(const char * name, const int& value) const
+{
+	glUniform1i(glGetUniformLocation(m_program_id, name), value);
+}

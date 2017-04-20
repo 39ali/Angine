@@ -26,13 +26,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -104,6 +104,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;SOIL.lib;assimp.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;SOIL.lib;assimp.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -135,6 +138,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;SOIL.lib;assimp.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;SOIL.lib;assimp.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -154,25 +160,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Cameras\FlyCamera.cpp" />
     <ClCompile Include="src\graphics\CubeMap.cpp" />
     <ClCompile Include="src\graphics\FrameBuffer.cpp" />
     <ClCompile Include="src\graphics\GlProgram.cpp" />
+    <ClCompile Include="src\graphics\Label.cpp" />
     <ClCompile Include="src\graphics\lights\DirectionLight.cpp" />
     <ClCompile Include="src\graphics\lights\PointLight.cpp" />
     <ClCompile Include="src\graphics\mesh.cpp" />
     <ClCompile Include="src\graphics\Shadow.cpp" />
     <ClCompile Include="src\graphics\SimpleRenderer.cpp" />
+    <ClCompile Include="src\graphics\SpriteRenderer.cpp" />
     <ClCompile Include="src\graphics\Time.cpp" />
     <ClCompile Include="src\graphics\Texture2D.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="angine.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="src\Cameras\FlyCamera.h" />
     <ClInclude Include="src\graphics\CubeMap.h" />
     <ClInclude Include="src\graphics\FrameBuffer.h" />
     <ClInclude Include="src\graphics\GlProgram.h" />
+    <ClInclude Include="src\graphics\Label.h" />
     <ClInclude Include="src\graphics\lights\DirectionLight.h" />
     <ClInclude Include="src\graphics\lights\Light.h" />
     <ClInclude Include="src\graphics\lights\PointLight.h" />
@@ -180,6 +192,7 @@
     <ClInclude Include="src\graphics\model.h" />
     <ClInclude Include="src\graphics\Shadow.h" />
     <ClInclude Include="src\graphics\SimpleRenderer.h" />
+    <ClInclude Include="src\graphics\SpriteRenderer.h" />
     <ClInclude Include="src\graphics\Texture2D.h" />
     <ClInclude Include="src\graphics\Time.h" />
     <ClInclude Include="src\graphics\Window.h" />

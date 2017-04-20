@@ -1,0 +1,5 @@
+﻿  Game.cpp
+c:\users\milhi\downloads\dev\angine\angine-core\src\utils\reader.h(8): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+  3DScene.vcxproj -> C:\Users\milhi\Downloads\Dev\Angine\Debug\3DScene.exe
+  3DScene.vcxproj -> C:\Users\milhi\Downloads\Dev\Angine\Debug\3DScene.pdb (Full PDB)

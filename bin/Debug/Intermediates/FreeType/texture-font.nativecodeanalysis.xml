@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\ali-pc\downloads\freetype\freetype-gl\</FILEPATH>
+      <FILENAME>texture-font.c</FILENAME>
+      <LINE>692</LINE>
+      <COLUMN>26</COLUMN>
+    </SFA>
+    <DEFECTCODE>6246</DEFECTCODE>
+    <DESCRIPTION>Local declaration of 'glyph' hides declaration of the same name in outer scope. For additional information, see previous declaration at line '662' of 'c:\users\ali-pc\downloads\freetype\freetype-gl\texture-font.c'.</DESCRIPTION>
+    <FUNCTION>texture_font_get_glyph</FUNCTION>
+    <DECORATED>texture_font_get_glyph</DECORATED>
+    <FUNCLINE>657</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\ali-pc\downloads\freetype\freetype-gl\</FILEPATH>
+        <FILENAME>texture-font.c</FILENAME>
+        <LINE>662</LINE>
+        <COLUMN>21</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

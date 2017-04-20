@@ -8,7 +8,7 @@ bool  Window::m_MouseButtons[MAX_BUTTONS];
 double Window::mx, Window::my;
 bool  Window::m_isclosed;
 
-Window::Window(const int width, const int height, const char* title) :
+Window::Window(const int width, const int height, const char* title,bool depth):
 	m_title(title), m_width(width), m_height(height)
 {
 	for each(auto k in m_Keys)
@@ -43,7 +43,9 @@ Window::Window(const int width, const int height, const char* title) :
 		std::cout << "glew init error" << std::endl;
 	}
 
-	glEnable(GL_DEPTH_TEST);
+	if (depth) {
+		glEnable(GL_DEPTH_TEST);
+	}
 
 	int m_width, m_height;
 
