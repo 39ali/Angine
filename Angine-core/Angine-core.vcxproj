@@ -160,8 +160,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Cameras\FlyCamera.cpp" />
     <ClCompile Include="src\graphics\CubeMap.cpp" />
     <ClCompile Include="src\graphics\FrameBuffer.cpp" />
@@ -179,7 +177,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="angine.h" />
-    <ClInclude Include="Game.h" />
     <ClInclude Include="src\Cameras\FlyCamera.h" />
     <ClInclude Include="src\graphics\CubeMap.h" />
     <ClInclude Include="src\graphics\FrameBuffer.h" />

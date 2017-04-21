@@ -22,7 +22,7 @@ void main ()
 {
 	vec3 color= texture(diffuseTexture,fs_in.TexCoords).rgb;
 	vec3 normal = normalize(fs_in.Normal);
-	vec3 lightColor = vec3(0.3);
+	vec3 lightColor = vec3(0.5);
 
 
 	vec3 ambient=0.3*color;
@@ -35,7 +35,7 @@ void main ()
 	//spec
     vec3 viewDir = normalize(viewPos-fs_in.FragPos);
     vec3 halfwayDir = normalize(lightdir+viewDir);
-    float spec =pow(max(dot(halfwayDir,normal),0.0),64.0);
+    float spec =pow(max(dot(halfwayDir,normal),0.0),32.0);
     vec3 specular = spec*lightColor;
 
     float shadow = calcShadow(fs_in.FragPosLightSpace,lightdir,normal);

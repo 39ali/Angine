@@ -3,7 +3,7 @@
 
 #define  lightPos glm::vec3(-2.0f, 4.0f, -1.0f)
 
-Game::Game():m_cubeVAO(0)
+Game::Game() :m_cubeVAO(0)
 {
 	createWindow(800, 600, "Angine", true);
 	m_simpleDepthShader = new GlProgram("./shaders/basicDepthShader.vs", "./shaders/basicDepthShader.frag");
@@ -12,7 +12,8 @@ Game::Game():m_cubeVAO(0)
 	m_camera = new FlyCamera(glm::vec3(0, 0, 3), glm::vec3(0, 1, 0), glm::vec3(1, 0, 0), glm::vec3(0, 0, -1), m_win);
 	initgl();
 	m_label = new Label("../Angine-core/fonts/arial.ttf", "../Angine-core/shaders/textShader.vs", "../Angine-core/shaders/textShader.frag");
-	woodTexture = new  Texture2D("./textures/wood.png", WrapType::REPEAT);
+	m_woodTexture = new  Texture2D("./textures/wood.png", WrapType::REPEAT);
+	m_wallTexture = new  Texture2D("./textures/wall.jpg", WrapType::REPEAT);
 	shadowobj = new Shadow();
 }
 
@@ -22,24 +23,27 @@ Game::~Game()
 	delete m_shader;
 	delete m_quadShader;
 	delete m_camera;
-	delete woodTexture;
+	delete m_woodTexture;
 	delete shadowobj;
+	delete m_wallTexture;
 }
 
 
-GLfloat planeVertices[] = {
-	// Positions            // Normals           // Texture Coords
-	25.0f, -0.5f,  25.0f,  0.0f,  1.0f,  0.0f,  25.0f, 0.0f,
-	-25.0f, -0.5f, -25.0f,  0.0f,  1.0f,  0.0f,  0.0f,  25.0f,
-	-25.0f, -0.5f,  25.0f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
-
-	25.0f, -0.5f,  25.0f,  0.0f,  1.0f,  0.0f,  25.0f, 0.0f,
-	25.0f, -0.5f, -25.0f,  0.0f,  1.0f,  0.0f,  25.0f, 25.0f,
-	-25.0f, -0.5f, -25.0f,  0.0f,  1.0f,  0.0f,  0.0f,  25.0f
-};
 
 void Game::initgl()
 {
+
+	const GLfloat planeVertices[] = {
+		// Positions            // Normals           // Texture Coords
+		25.0f, -0.5f,  25.0f,  0.0f,  1.0f,  0.0f,  25.0f, 0.0f,
+		-25.0f, -0.5f, -25.0f,  0.0f,  1.0f,  0.0f,  0.0f,  25.0f,
+		-25.0f, -0.5f,  25.0f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
+
+		25.0f, -0.5f,  25.0f,  0.0f,  1.0f,  0.0f,  25.0f, 0.0f,
+		25.0f, -0.5f, -25.0f,  0.0f,  1.0f,  0.0f,  25.0f, 25.0f,
+		-25.0f, -0.5f, -25.0f,  0.0f,  1.0f,  0.0f,  0.0f,  25.0f
+	};
+
 	m_shader->use();
 	m_shader->setUniform("diffuseTexture", 0);
 	m_shader->setUniform("shadowMap", 1);
@@ -94,17 +98,17 @@ void  Game::render()
 	glm::mat4 view = m_camera->getMatrix();
 	m_shader->setUniform("projection", projection);
 	m_shader->setUniform("view", view);
-	woodTexture->use(GL_TEXTURE0);
+
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, shadowobj->getdepthTexture());
-	renderScene(*m_shader);
+	renderScene(*m_shader, false);
 	m_label->drawString(std::to_string(static_cast<int>(Time::getFps())) + " fps", glm::vec2(20, 20), 0.5f, glm::vec3(0.984f, 0.964f, 0.215f));
 
 }
 
 void Game::update()
 {
-	
+
 }
 
 void Game::tick()
@@ -215,17 +219,25 @@ void Game::RenderCube()
 }
 
 
-void Game::renderScene(GlProgram &shader)
+void Game::renderScene(GlProgram &shader, bool depthRender)
 {
 	// Floor
+	if (!depthRender)
+	{
+		m_woodTexture->use(0);
+	}
 	glm::mat4 model;
 	glUniformMatrix4fv(glGetUniformLocation(shader.getProgramId(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 	glBindVertexArray(m_planeVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
 	// Cubes
+	if (!depthRender) {
+		m_woodTexture->unuse();
+		m_wallTexture->use(0);
+	}
 	model = glm::mat4();
-	model = glm::translate(model, glm::vec3(0.0f, 1.5f, 0.0));
+	model = glm::translate(model, glm::vec3(0.0f, 2 + sin(Time::getTime()), 0.0));
 	glUniformMatrix4fv(glGetUniformLocation(shader.getProgramId(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 	RenderCube();
 	model = glm::mat4();
@@ -234,7 +246,9 @@ void Game::renderScene(GlProgram &shader)
 	RenderCube();
 	model = glm::mat4();
 	model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 2.0));
-	model = glm::rotate(model, 60.0f, glm::normalize(glm::vec3(1.0, 0.0, 1.0)));
+	static  float time;
+	time += cosf(Time::getTime());
+	model = glm::rotate(model, time*0.02f, glm::normalize(glm::vec3(1.0, 0.0, 1.0)));
 	model = glm::scale(model, glm::vec3(0.5));
 	glUniformMatrix4fv(glGetUniformLocation(shader.getProgramId(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 	RenderCube();

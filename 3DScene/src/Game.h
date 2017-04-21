@@ -11,7 +11,7 @@ private:
 	virtual void update();
 	virtual void tick();
 	void initgl();
-	void renderScene(GlProgram &shader);
+	void renderScene(GlProgram &shader, bool depthRender = true);
 	void RenderQuad();
 	void RenderCube();
 private:
@@ -21,7 +21,7 @@ private:
 	FlyCamera* m_camera;
 	Label* m_label;
 
-	Texture2D*  woodTexture;
+	Texture2D*  m_woodTexture, *m_wallTexture;
 	Shadow* shadowobj;
 	GLuint m_planeVBO, m_planeVAO, m_quadVAO, m_quadVBO, m_cubeVAO, m_cubeVBO;
 };
