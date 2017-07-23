@@ -1,2 +1,12 @@
-﻿  BreakOut.vcxproj -> C:\Users\milhi\Downloads\Dev\Angine\Debug\BreakOut.exe
-  BreakOut.vcxproj -> C:\Users\milhi\Downloads\Dev\Angine\Debug\BreakOut.pdb (Full PDB)
+﻿  Level.cpp
+c:\users\ali-pc\downloads\dev\angine\breakout\src\level.cpp(52): warning C4018: '<': signed/unsigned mismatch
+c:\users\ali-pc\downloads\dev\angine\breakout\src\level.cpp(54): warning C4018: '<': signed/unsigned mismatch
+  GameObject.cpp
+  GameLogic.cpp
+  BreakOut.cpp
+  Ball.cpp
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+Angine-core.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'Angine-core.lib(glew.obj)' or at 'C:\Users\Ali-PC\Downloads\dev\Angine\Debug\vc120.pdb'; linking object as if no debug info
+  BreakOut.vcxproj -> C:\Users\Ali-PC\Downloads\dev\Angine\Debug\BreakOut.exe
